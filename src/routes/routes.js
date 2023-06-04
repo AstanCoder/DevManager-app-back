@@ -15,6 +15,11 @@ const {
   deleteProject,
   listClient,
 } = require("../controllers/projects/project.controller");
+const {
+  createUser,
+  listUser,
+  deleteUser,
+} = require("../controllers/users/user.controller");
 const checkAuthToken = require("../middleware/checkAuthToken");
 
 const router = require("express").Router();
@@ -32,5 +37,8 @@ router.get("/project/:id", checkAuthToken, getProject);
 router.get("/teams", listTeams);
 router.get("/user/types", listUserType);
 router.delete("/project/delete/:id", checkAuthToken, deleteProject);
+router.post("/user", checkAuthToken, createUser);
+router.get("/user/list", checkAuthToken, listUser);
+router.delete("/user/:id", checkAuthToken, deleteUser);
 
 module.exports = router;

@@ -42,7 +42,7 @@ const getProfile = async (req, res) => {
   try {
     const user_id = req.user_id;
 
-    const user = await pool.query("SELECT * FROM usuario WHERE id = $1", [
+    const user = await pool.query("SELECT * FROM user_info WHERE id = $1", [
       user_id,
     ]);
 

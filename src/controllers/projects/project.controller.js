@@ -48,7 +48,7 @@ const createTask = async (req, res) => {
     const { project_id } = req.params;
     const { nombre, descripcion, usuario } = req.body;
     const result = await pool.query(
-      "INSERT INTO proyecto (proyecto_id, usuario_id, nombre, descripcion, estado_tarea_id) VALUES ($1, $2, $3, $4, $5)",
+      "INSERT INTO tarea (proyecto_id, usuario_id, nombre, descripcion, estado_tarea_id) VALUES ($1, $2, $3, $4, $5)",
       [Number(project_id), usuario, nombre, descripcion, 1]
     );
 
@@ -73,7 +73,7 @@ const listTask = async (req, res) => {
   try {
     const { id } = req.params;
     const results = await pool.query(
-      "SELECT * FROM tarea WHERE proyecto_id = $1",
+      "SELECT * FROM task_info WHERE proyecto_id = $1",
       [Number(id)]
     );
     return res.status(200).json({ results: results.rows });
