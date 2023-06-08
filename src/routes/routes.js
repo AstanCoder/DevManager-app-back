@@ -14,6 +14,9 @@ const {
   listUserType,
   deleteProject,
   listClient,
+  listTaskStatus,
+  updateTaskStatus,
+  deleteTask,
 } = require("../controllers/projects/project.controller");
 const {
   createUser,
@@ -40,5 +43,8 @@ router.delete("/project/delete/:id", checkAuthToken, deleteProject);
 router.post("/user", checkAuthToken, createUser);
 router.get("/user/list", checkAuthToken, listUser);
 router.delete("/user/:id", checkAuthToken, deleteUser);
+router.get("/task/status", checkAuthToken, listTaskStatus)
+router.post("/task/status", checkAuthToken, updateTaskStatus)
+router.delete("/task/delete/:id", checkAuthToken, deleteTask)
 
 module.exports = router;

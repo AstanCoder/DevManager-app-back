@@ -83,6 +83,33 @@ const listTask = async (req, res) => {
   }
 };
 
+const listTaskStatus = async (req, res) => {
+  try {
+    const result = await pool.query("SELECT * FROM estado_tarea");
+
+    return res.status(200).json({ results: result.rows });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(error);
+  }
+};
+
+const updateTaskStatus = async (req, res) => {
+  try {
+    const { id, status_id } = req.body;
+
+    const result = await pool.query(
+      "UPDATE tarea SET estado_tarea_id = $1 WHERE id = $2",
+      [Number(status_id), Number(id)]
+    );
+
+    return res.status(200).json({ resutls: result.rows });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(error);
+  }
+};
+
 const getProject = async (req, res) => {
   try {
     const { id } = req.params;
@@ -129,6 +156,20 @@ const listUserType = async (req, res) => {
   }
 };
 
+const deleteTask = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const result = await pool.query("DELETE FROM tarea WHERE id= $1", [
+      Number(id),
+    ]);
+    return res.status(200).json({ results: result.rowCount });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send(error);
+  }
+};
+
 module.exports = {
   createProject,
   createTask,
@@ -140,4 +181,7 @@ module.exports = {
   listUserType,
   deleteProject,
   listClient,
+  listTaskStatus,
+  updateTaskStatus,
+  deleteTask
 };
